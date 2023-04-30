@@ -1,0 +1,38 @@
+package com.example.mycontenttrackerbackend.service;
+
+import com.example.mycontenttrackerbackend.repository.PartnershipRepository;
+import com.example.mycontenttrackerbackend.repository.po.PartnershipPo;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
+class PartnershipServiceTest {
+
+    @Mock
+    private PartnershipRepository partnershipRepository;
+
+    @InjectMocks
+    private PartnershipService partnershipService;
+
+    @Test
+    public void getPartnershipDtoByPartnerName() {
+        var partnershipsByA = List.of(PartnershipPo.builder().partnerName("Partner A").fee(250).partnershipId(UUID.randomUUID()).build());
+
+        when(partnershipRepository.findByPartnerName("Partner A"))
+                .thenReturn((List<PartnershipPo>) partnershipsByA);
+
+        var partnershipsByAFromService = partnershipService.getPartnershipsByPartnerName("Partner A");
+
+        assertEquals(1, partnershipsByAFromService.size());
+        assertEquals("Partner A", partnershipsByAFromService.get(0).getPartnerName());
+    }
+}

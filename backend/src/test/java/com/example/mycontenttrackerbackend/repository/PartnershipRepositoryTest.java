@@ -50,4 +50,18 @@ class PartnershipRepositoryTest {
                 .ignoringFields("partnershipId")
                 .isEqualTo(partnership);
     }
+    @Test
+    public void shouldRetrievePartnershipPoGivenPartnerName() {
+        var partnership = PartnershipPo.builder()
+                .partnerName("Partner A")
+                .fee(12345)
+                .build();
+
+        partnershipRepository.save(partnership);
+
+        var retrievedPartnerships = partnershipRepository.findByPartnerName("Partner A");
+
+        assertEquals(1, retrievedPartnerships.size());
+        assertNotNull(retrievedPartnerships.get(0).getPartnerName());
+    }
 }
