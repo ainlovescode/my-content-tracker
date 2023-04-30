@@ -1,0 +1,28 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="PartnershipRepositoryTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+    <module name="my-content-tracker-backend.test" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.example.mycontenttrackerbackend.repository.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <option name="PACKAGE_NAME" value="com.example.mycontenttrackerbackend.repository" />
+    <option name="MAIN_CLASS_NAME" value="com.example.mycontenttrackerbackend.repository.PartnershipRepositoryTest" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="class" />
+    <envs>
+      <env name="LANG" value="" />
+      <env name="LC_ALL" value="" />
+      <env name="LC_COLLATE" value="C" />
+      <env name="LC_CTYPE" value="UTF-8" />
+      <env name="LC_MESSAGES" value="C" />
+      <env name="LC_MONETARY" value="C" />
+      <env name="LC_NUMERIC" value="C" />
+      <env name="LC_TIME" value="C" />
+    </envs>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
