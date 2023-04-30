@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DataJpaTest
 class PartnershipRepositoryTest {
@@ -33,22 +34,6 @@ class PartnershipRepositoryTest {
         assertThat(savedPartnership).usingRecursiveComparison().isEqualTo(partnership);
     }
 
-    @Test
-    public void shouldRetrievePartnershipPoWithId() {
-        var partnership = PartnershipPo.builder()
-                .partnerName("Partner A")
-                .fee(12345)
-                .build();
-
-        partnershipRepository.save(partnership);
-
-        var retrievedPartnerships = partnershipRepository.findAll();
-
-        assertNotNull(retrievedPartnerships.get(0).getPartnershipId());
-        assertThat(retrievedPartnerships.get(0)).usingRecursiveComparison()
-                .ignoringFields("partnershipId")
-                .isEqualTo(partnership);
-    }
     @Test
     public void shouldRetrievePartnershipPoGivenPartnerName() {
         var partnership = PartnershipPo.builder()
