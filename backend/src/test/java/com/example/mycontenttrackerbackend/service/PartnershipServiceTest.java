@@ -45,7 +45,11 @@ class PartnershipServiceTest {
     }
     @Test
     public void getPartnershipDtoByPartnerName() {
-        var partnershipsByA = List.of(PartnershipPo.builder().partnerName("Partner A").partnershipFee(250).partnershipId(UUID.randomUUID()).build());
+        var partnershipsByA = List.of(PartnershipPo.builder()
+                .partnerName("Partner A")
+                .partnershipFee(250)
+                .partnershipId(UUID.randomUUID())
+                .build());
 
         when(partnershipRepository.findByPartnerName("Partner A"))
                 .thenReturn((List<PartnershipPo>) partnershipsByA);

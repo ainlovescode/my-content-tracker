@@ -6,10 +6,7 @@ import com.example.mycontenttrackerbackend.service.dto.PartnershipDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,10 +22,16 @@ public class PartnershipController {
         var savedPartnership = partnershipService.savePartnership(partnershipDetails);
         return ResponseEntity.ok(savedPartnership);
     }
-    @GetMapping
-    public ResponseEntity<List<PartnershipDto>> getPartnershipsByName(@RequestBody String partnerName) {
+    @GetMapping(path = "/{partnerName}")
+    public ResponseEntity<List<PartnershipDto>> getPartnershipsByPartnerName(@PathVariable String partnerName) {
 
         var allPartnerships = partnershipService.getPartnershipsByPartnerName(partnerName);
+        System.out.println("PARTNER NAME: " + allPartnerships.toString());
+        return ResponseEntity.ok(allPartnerships);
+    }
+    @GetMapping
+    public ResponseEntity<List<PartnershipDto>> getAllPartnerships() {
+        var allPartnerships = partnershipService.getAllPartnerships();
         return ResponseEntity.ok(allPartnerships);
     }
 }

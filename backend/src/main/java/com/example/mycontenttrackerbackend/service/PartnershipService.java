@@ -35,6 +35,15 @@ public class PartnershipService {
 
         return partnershipsToDto;
     }
+    public List<PartnershipDto> getAllPartnerships() {
+        var retrievedPartnerships = partnershipRepository.findAll();
+
+        var partnershipsToDto = retrievedPartnerships.stream()
+                .map(partnershipPo -> mapToDto(partnershipPo))
+                .collect(Collectors.toList());
+
+        return partnershipsToDto;
+    }
 
     public PartnershipDto mapToDto(PartnershipPo partnershipPo) {
 

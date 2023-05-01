@@ -58,7 +58,7 @@ class PartnershipControllerTest {
     }
 
     @Test
-    void getAllPartnerships() throws Exception {
+    void getPartnershipsForPartnerName() throws Exception {
 
         var allPartnerships = List.of(
                 PartnershipDto.builder().partnershipId(UUID.randomUUID())
@@ -69,7 +69,33 @@ class PartnershipControllerTest {
 
         when(partnershipService.getPartnershipsByPartnerName(PARTNER_A_NAME)).thenReturn((List<PartnershipDto>) allPartnerships);
 
-        mockMvc.perform(get("/partnerships").content(PARTNER_A_NAME))
+        mockMvc.perform(get("/partnerships/"+ PARTNER_A_NAME.toString()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].partnerName").value(PARTNER_A_NAME));
+
+
+    }
+    @Test
+    void getAllPartnerships() throws Exception {
+
+        var allPartnerships = List.of(
+                PartnershipDto.builder().partnershipId(UUID.randomUUID())
+                        .partnershipFee(500)
+                        .partnerName(PARTNER_A_NAME)
+                        .build(),
+                PartnershipDto.builder().partnershipId(UUID.randomUUID())
+                        .partnershipFee(500)
+                        .partnerName(PARTNER_A_NAME)
+                        .build(),
+                PartnershipDto.builder().partnershipId(UUID.randomUUID())
+                        .partnershipFee(500)
+                        .partnerName(PARTNER_A_NAME)
+                        .build()
+        );
+
+        when(partnershipService.getAllPartnerships()).thenReturn((List<PartnershipDto>) allPartnerships);
+
+        mockMvc.perform(get("/partnerships"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].partnerName").value(PARTNER_A_NAME));
 
