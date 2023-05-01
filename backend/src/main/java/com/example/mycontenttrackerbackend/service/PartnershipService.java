@@ -17,21 +17,31 @@ public class PartnershipService {
     @Autowired
     private PartnershipRepository partnershipRepository;
 
+    private ModelMapper modelMapper = new ModelMapper();
 
-    ModelMapper modelMapper = new ModelMapper();
+    public PartnershipDto savePartnership(PartnershipPo partnershipDetails) {
+        var savedPartnership = partnershipRepository.save(
+                partnershipDetails);
 
+        var partnershipDto = mapToDto(savedPartnership);
+        return partnershipDto;
+    }
     public List<PartnershipDto> getPartnershipsByPartnerName(String partnerName) {
         var retrievedPartnerships = partnershipRepository.findByPartnerName(partnerName);
-        return mapToDto(retrievedPartnerships);
+
+        var partnershipsToDto = retrievedPartnerships.stream()
+                .map(partnershipPo ->mapToDto(partnershipPo))
+                .collect(Collectors.toList());
+
+        return partnershipsToDto;
     }
 
-    public List<PartnershipDto> mapToDto(List<PartnershipPo> retrievedPartnerships) {
+    public PartnershipDto mapToDto(PartnershipPo partnershipPo) {
+
         modelMapper.getConfiguration()
                 .setFieldMatchingEnabled(true)
                 .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE);
 
-        return retrievedPartnerships.stream()
-                .map(partnershipPo -> modelMapper.map(partnershipPo, PartnershipDto.class))
-                .collect(Collectors.toList());
+        return modelMapper.map(partnershipPo, PartnershipDto.class);
     }
 }

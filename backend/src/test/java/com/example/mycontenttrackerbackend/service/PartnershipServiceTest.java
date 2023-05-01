@@ -12,6 +12,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.UUID;
 
+import static com.example.mycontenttrackerbackend.factory.PartnershipFactory.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -26,8 +29,23 @@ class PartnershipServiceTest {
     private PartnershipService partnershipService;
 
     @Test
+    public void savePartnership() {
+        var partnership = PartnershipFactory.valid();
+
+        var savedPartnershipPo = valid();
+
+        when(partnershipRepository.save((PartnershipPo) any(PartnershipPo.class)))
+                .thenReturn(savedPartnershipPo);
+
+        var savedPartnership = partnershipService.savePartnership(partnership);
+
+        assertNotNull(savedPartnership);
+        assertEquals(PARTNER_A_NAME, savedPartnership.getPartnerName());
+        assertEquals(PARTNERSHIP_FEE, savedPartnership.getPartnershipFee());
+    }
+    @Test
     public void getPartnershipDtoByPartnerName() {
-        var partnershipsByA = List.of(PartnershipPo.builder().partnerName("Partner A").fee(250).partnershipId(UUID.randomUUID()).build());
+        var partnershipsByA = List.of(PartnershipPo.builder().partnerName("Partner A").partnershipFee(250).partnershipId(UUID.randomUUID()).build());
 
         when(partnershipRepository.findByPartnerName("Partner A"))
                 .thenReturn((List<PartnershipPo>) partnershipsByA);
