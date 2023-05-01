@@ -1,5 +1,6 @@
 package com.example.mycontenttrackerbackend.service;
 
+import com.example.mycontenttrackerbackend.factory.PartnershipFactory;
 import com.example.mycontenttrackerbackend.repository.PartnershipRepository;
 import com.example.mycontenttrackerbackend.repository.po.PartnershipPo;
 import org.junit.jupiter.api.Test;

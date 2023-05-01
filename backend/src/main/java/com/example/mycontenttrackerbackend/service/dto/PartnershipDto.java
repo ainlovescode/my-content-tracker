@@ -17,5 +17,5 @@ public class PartnershipDto {
     private UUID partnershipId;
 
     private String partnerName;
-    private long fee;
+    private long partnershipFee;
 }

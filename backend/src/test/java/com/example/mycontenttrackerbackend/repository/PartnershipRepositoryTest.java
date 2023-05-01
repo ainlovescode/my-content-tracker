@@ -26,7 +26,7 @@ class PartnershipRepositoryTest {
     public void shouldSaveValidPartnershipPo() {
         var partnership = PartnershipPo.builder()
                 .partnerName("Partner A")
-                .fee(12345)
+                .partnershipFee(12345)
                 .build();
 
         var savedPartnership = partnershipRepository.save(partnership);
@@ -38,7 +38,7 @@ class PartnershipRepositoryTest {
     public void shouldRetrievePartnershipPoGivenPartnerName() {
         var partnership = PartnershipPo.builder()
                 .partnerName("Partner A")
-                .fee(12345)
+                .partnershipFee(12345)
                 .build();
 
         partnershipRepository.save(partnership);
