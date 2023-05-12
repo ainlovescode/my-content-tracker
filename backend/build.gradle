@@ -44,7 +44,7 @@ jacocoTestReport {
 
 jacoco {
     toolVersion = "0.8.8"
-    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
+    reportsDirectory = layout.buildDirectory.dir('jacoco/reports')
 }
 
 jacocoTestCoverageVerification {
@@ -55,12 +55,21 @@ jacocoTestCoverageVerification {
             }
         }
     }
+    dependsOn jacocoTestReport
 }
 
 spotless {
     java {
-        target 'src/*/java/**/*.java'
+        target fileTree('.') {
+            include '**/*.java'
+            exclude '**/build/**', '**/build-*/**'
+        }
+        toggleOffOn()
+        googleJavaFormat()
         removeUnusedImports()
+        trimTrailingWhitespace()
+        endWithNewline()
+        indentWithSpaces(4)
     }
 }
 
