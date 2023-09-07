@@ -7,6 +7,7 @@ import com.example.mycontenttrackerbackend.service.dto.PartnershipDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.config.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,8 +39,7 @@ public class PartnershipService {
     }
 
     public List<PartnershipDto> getAllPartnerships() {
-        var retrievedPartnerships = partnershipRepository.findAll();
-
+        var retrievedPartnerships = partnershipRepository.findAllByOrderByPartnerNameAsc();
         var partnershipsToDto =
                 retrievedPartnerships.stream()
                         .map(partnershipPo -> mapToDto(partnershipPo))

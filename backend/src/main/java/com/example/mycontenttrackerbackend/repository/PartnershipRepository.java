@@ -10,6 +10,8 @@ import java.util.UUID;
 
 @Repository
 public interface PartnershipRepository extends JpaRepository<PartnershipPo, UUID> {
+
+    List<PartnershipPo> findAllByOrderByPartnerNameAsc();
     List<PartnershipPo> findByPartnerName(String partnerName);
 
     PartnershipPo save(PartnershipPo newPartnership);

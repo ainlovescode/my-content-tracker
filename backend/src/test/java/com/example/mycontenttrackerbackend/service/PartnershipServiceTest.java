@@ -44,22 +44,31 @@ class PartnershipServiceTest {
     }
 
     @Test
-    public void getPartnershipDtoByPartnerName() {
-        var partnershipsByA =
+    public void getPartnershipDtosAscending() {
+
+        var partnershipsSorted =
                 List.of(
                         PartnershipPo.builder()
                                 .partnerName("Partner A")
                                 .partnershipFee(250)
                                 .partnershipId(UUID.randomUUID())
+                                .build(),
+
+
+                        PartnershipPo.builder()
+                                .partnerName("Partner C")
+                                .partnershipFee(250)
+                                .partnershipId(UUID.randomUUID())
                                 .build());
 
-        when(partnershipRepository.findByPartnerName("Partner A"))
-                .thenReturn((List<PartnershipPo>) partnershipsByA);
 
-        var partnershipsByAFromService =
-                partnershipService.getPartnershipsByPartnerName("Partner A");
+        when(partnershipRepository.findAllByOrderByPartnerNameAsc())
+                .thenReturn((List<PartnershipPo>) partnershipsSorted);
 
-        assertEquals(1, partnershipsByAFromService.size());
-        assertEquals("Partner A", partnershipsByAFromService.get(0).getPartnerName());
+        var partnershipsFromService =
+                partnershipService.getAllPartnerships();
+
+        assertEquals(2, partnershipsFromService.size());
+        assertEquals("Partner A", partnershipsFromService.get(0).getPartnerName());
     }
 }
